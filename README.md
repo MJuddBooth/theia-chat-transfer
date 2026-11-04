@@ -46,6 +46,11 @@ theia-chat-transfer import chats.tar.gz --map /home/booth/git=/Users/booth/src
   Each touched `index.json` is rebuilt from the chat files.
 - Existing stores are backed up to `<config dir>/chat-transfer-backups/` before an import.
 
+## Importing while Theia is running
+
+[`vscode-extension/`](vscode-extension/README.md) is a small Theia IDE extension that runs this tool
+from the command palette. After an import it makes Theia re-read the chat list, so Theia can stay open.
+
 ## Limitations
 
 - Theia files workspace chats under the workspace's **first root folder**, not the

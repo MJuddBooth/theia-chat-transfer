@@ -1,0 +1,82 @@
+{
+  "name": "theia-chat-transfer",
+  "displayName": "Theia Chat Transfer",
+  "description": "Export and import Eclipse Theia AI chat history while Theia is running",
+  "version": "0.1.2",
+  "publisher": "MJuddBooth",
+  "license": "GPL-3.0-or-later",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MJuddBooth/theia-chat-transfer"
+  },
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "main": "./out/extension.js",
+  "activationEvents": [
+    "onCommand:theiaChatTransfer.export",
+    "onCommand:theiaChatTransfer.import",
+    "onCommand:theiaChatTransfer.reloadChatList"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "theiaChatTransfer.export",
+        "title": "Export Chats...",
+        "category": "Theia Chat Transfer"
+      },
+      {
+        "command": "theiaChatTransfer.import",
+        "title": "Import Chats...",
+        "category": "Theia Chat Transfer"
+      },
+      {
+        "command": "theiaChatTransfer.reloadChatList",
+        "title": "Reload Chat List from Disk",
+        "category": "Theia Chat Transfer"
+      }
+    ],
+    "configuration": {
+      "title": "Theia Chat Transfer",
+      "properties": {
+        "theiaChatTransfer.cliPath": {
+          "type": "string",
+          "default": "theia-chat-transfer",
+          "scope": "machine",
+          "description": "Path to the theia-chat-transfer command line tool."
+        },
+        "theiaChatTransfer.configDir": {
+          "type": "string",
+          "default": "",
+          "scope": "machine",
+          "description": "Theia config directory. Empty means $THEIA_CONFIG_DIR, or ~/.theia-ide if that is unset."
+        },
+        "theiaChatTransfer.pathMaps": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^/.+=/.+$"
+          },
+          "default": [],
+          "scope": "machine",
+          "description": "Extra path mappings for imports, as OLD=NEW (e.g. /home/booth/git=/Users/booth/src). The home directory is mapped automatically."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p .",
+    "watch": "tsc -watch -p .",
+    "package": "cp ../LICENSE . && vsce package"
+  },
+  "devDependencies": {
+    "@types/node": "^18.0.0",
+    "@types/vscode": "~1.80.0",
+    "@vscode/vsce": "^3.0.0",
+    "typescript": "^5.4.0"
+  }
+}
