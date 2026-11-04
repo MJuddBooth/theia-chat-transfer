@@ -2,7 +2,7 @@
   "name": "theia-chat-transfer",
   "displayName": "Theia Chat Transfer",
   "description": "Export and import Eclipse Theia AI chat history while Theia is running",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "publisher": "MJuddBooth",
   "license": "GPL-3.0-or-later",
   "repository": {

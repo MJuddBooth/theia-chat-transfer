@@ -86,7 +86,8 @@ async function rememberBundleDir(bundle: vscode.Uri): Promise<void> {
 }
 
 async function exportChats(): Promise<void> {
-    const stamp = new Date().toISOString().slice(0, 10);
+    const now = new Date();
+    const stamp = [now.getFullYear(), now.getMonth() + 1, now.getDate()].map(n => String(n).padStart(2, '0')).join('-');
     const target = await vscode.window.showSaveDialog({
         defaultUri: vscode.Uri.file(path.join(lastBundleDir(), `theia-chats-${stamp}.tar.gz`)),
         filters: { 'Chat bundles': ['gz'] },
