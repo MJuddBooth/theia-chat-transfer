@@ -26,7 +26,12 @@ No dependencies beyond the Python standard library (3.8+). Without installing, r
 
 ## Usage
 
-Close Theia first: a running Theia overwrites `index.json` from its in-memory copy.
+`list` and `export` are safe while Theia is running. For `import`, either:
+
+- close Theia first, because a running Theia caches each `index.json` in memory and writes that copy
+  back on its next autosave, dropping the imported chats from the chat list; or
+- use the [extension](#importing-while-theia-is-running), which imports and then makes the running
+  Theia re-read the chat list.
 
 ```bash
 # source machine
@@ -49,14 +54,28 @@ theia-chat-transfer import chats.tar.gz --map /home/booth/git=/Users/booth/src
 ## Importing while Theia is running
 
 [`vscode-extension/`](vscode-extension/README.md) is a small Theia IDE extension that runs this tool
-from the command palette. After an import it makes Theia re-read the chat list, so Theia can stay open.
+from the command palette (**Theia Chat Transfer: Export Chats... / Import Chats... / Reload Chat List
+from Disk**). After an import it makes Theia re-read the chat list, so Theia can stay open. Avoid
+importing while a chat reply is streaming; the extension warns if a chat was saved in the last
+10 seconds.
+
+The extension needs this tool installed. Theia's extension host may not see your shell's `PATH`, so
+set `theiaChatTransfer.cliPath` to the tool's full path, for example:
+
+```bash
+python3 -m venv ~/.local/share/theia-chat-transfer-venv
+~/.local/share/theia-chat-transfer-venv/bin/pip install .
+# then in Theia user settings:
+# "theiaChatTransfer.cliPath": "/home/<you>/.local/share/theia-chat-transfer-venv/bin/theia-chat-transfer"
+```
 
 ## Limitations
 
 - Theia files workspace chats under the workspace's **first root folder**, not the
   `.code-workspace` file, so workspaces sharing a first folder share one chat list.
 - Only chats are transferred, not other per-workspace metadata (e.g. AI memory).
-- POSIX paths only (Linux, macOS).
+- POSIX paths only (Linux, macOS). Linux → macOS path rewriting is covered by unit tests but
+  hasn't yet been tried on a real Mac.
 
 ## Development
 

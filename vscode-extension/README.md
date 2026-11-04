@@ -10,6 +10,10 @@ installed (see the [main README](../README.md)).
 - **Theia Chat Transfer: Import Chats...** shows a dry run, then imports a bundle and reloads the chat list.
 - **Theia Chat Transfer: Reload Chat List from Disk** makes Theia re-read its chat index files.
 
+Each command switches the Output panel to the **Theia Chat Transfer** channel, which logs the
+commands run and their output. The export and import dialogs open in the folder of the last bundle
+used (your home folder the first time).
+
 ## How the reload works
 
 Theia keeps each chat store's `index.json` in memory and writes it back on every autosave, so
